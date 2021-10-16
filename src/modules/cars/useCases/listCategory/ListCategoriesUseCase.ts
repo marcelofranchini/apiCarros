@@ -1,5 +1,5 @@
-import { Category } from "../../entities/Category";
-import { ICategoryRopository } from "../../repositories/implemetations/ICategoryRopository";
+import { Category } from "../../infra/typeorm/entities/Category";
+import { ICategoryRopository } from "../../repositories/ICategoryRopository";
 
 class ListCategoriesUseCase {
     constructor(private categoryRepository: ICategoryRopository) {}

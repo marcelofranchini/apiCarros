@@ -1,7 +1,6 @@
-import { CategoryRepository } from "../../repositories/CategoryRepository";
+import { CategoryRepository } from "../../infra/typeorm/repositories/CategoryRepository";
 import { ListCategoriesController } from "./ListCategoriesController";
 import { ListCategoriesUseCase } from "./ListCategoriesUseCase";
-
 
 export default (): ListCategoriesController => {
     const categoryRepository = new CategoryRepository();

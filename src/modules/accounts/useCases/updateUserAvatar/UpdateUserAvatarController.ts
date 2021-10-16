@@ -1,6 +1,6 @@
 import { request, Request, Response } from "express";
 import { container } from "tsyringe";
-import { UserRepository } from "../../repositories/UserRepository";
+import { UserRepository } from "../../infra/typeorm/repositories/UserRepository";
 import { UpdateUserAvatarUseCase } from "./UpdateUserAvatarUseCase";
 
 class UpdateUserAvatarController {
