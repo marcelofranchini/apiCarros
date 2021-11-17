@@ -14,9 +14,6 @@ interface CarDTO {
 }
 
 class CarRepositoryInMemory implements ICarRepository {
-    findByLicensePlate(license_plate: string): Promise<Car> {
-        throw new Error("Method not implemented.");
-    }
     private car: Car[] = [];
     async create(data: CarDTO): Promise<Car> {
         const car = new Car();
@@ -27,9 +24,38 @@ class CarRepositoryInMemory implements ICarRepository {
 
         return car;
     }
-    async findLicensePlate(license_plate: string): Promise<Car> {
+    async findByLicensePlate(license_plate: string): Promise<Car> {
         const car = this.car.find((car) => car.license_plate === license_plate);
         return car;
+    }
+
+    async findAvailable(
+        brand?: string,
+        name?: string,
+        category_id?: string
+    ): Promise<Car[]> {
+        const cars = this.car.filter((car) => {
+            if (
+                car.available === true ||
+                (brand && car.brand === brand) ||
+                (name && car.name === name) ||
+                (category_id && car.category_id === category_id)
+            ) {
+                return car;
+            }
+
+            return null;
+        });
+
+        return cars;
+    }
+    async findById(id: string): Promise<Car> {
+        return this.car.find((car) => car.id === id);
+    }
+
+    async updateAvailable(id: string, available: boolean): Promise<void> {
+        const findIndex = this.car.findIndex((car) => car.id === id);
+        this.car[findIndex].available = available;
     }
 }
 

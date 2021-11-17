@@ -1,3 +1,5 @@
+import { UsersTokensRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory";
+import { DayjsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayjsDateProvider";
 import { AppError } from "@shared/errors/AppError";
 import { IUserDTO } from "../../dtos/IUserDTO";
 import { UserRepositoryInMemory } from "../../repositories/in-memory/UserRepositoryInMemory";
@@ -7,13 +9,21 @@ import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 let userRepositoryInMemory: UserRepositoryInMemory;
 let authenticateUserCase: AuthenticateUserUseCase;
 let createUserUseCase: CreateUserUseCase;
+let dateProvider: DayjsDateProvider;
+let usersTokensUseCase: UsersTokensRepositoryInMemory;
 
 describe("Autenticação de usuário", () => {
     beforeEach(() => {
         userRepositoryInMemory = new UserRepositoryInMemory();
+        dateProvider = new DayjsDateProvider();
+        usersTokensUseCase = new UsersTokensRepositoryInMemory();
+
         authenticateUserCase = new AuthenticateUserUseCase(
-            userRepositoryInMemory
+            userRepositoryInMemory,
+            usersTokensUseCase,
+            dateProvider
         );
+
         createUserUseCase = new CreateUserUseCase(userRepositoryInMemory);
     });
 
@@ -32,30 +42,32 @@ describe("Autenticação de usuário", () => {
         });
 
         expect(authenticate).toHaveProperty("token");
+        expect(authenticate).toHaveProperty("refresh_token");
     });
 
     it("Usuário incorreto", async () => {
-        expect(async () => {
-            let authenticate = await authenticateUserCase.execute({
-                email: "kslkjlkd",
-                password: "lkjlkk",
-            });
-        }).rejects.toBeInstanceOf(AppError);
+        await expect(
+            authenticateUserCase.execute({
+                email: "errado",
+                password: "jnjnjn",
+            })
+        ).rejects.toEqual(new AppError("Email or password incorrect!"));
     });
 
     it("Senha incorreta", async () => {
         let user: IUserDTO = {
             name: "marcelo",
-            email: "marcelok@2ll.com",
+            email: "marc@2ll.com",
             password: "1243",
-            driver_license: "87987",
+            driver_license: "879879",
         };
         await createUserUseCase.execute(user);
-        expect(async () => {
-            await authenticateUserCase.execute({
+
+        await expect(
+            authenticateUserCase.execute({
                 email: user.email,
                 password: "senha errada",
-            });
-        }).rejects.toBeInstanceOf(AppError);
+            })
+        ).rejects.toEqual(new AppError("Email or password incorrect!"));
     });
 });
