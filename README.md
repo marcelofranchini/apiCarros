@@ -1,5 +1,4 @@
 # Cadastro de carro
-                //"test": "set NODE_ENV=test && jest  --runInBand --detectOpenHandles",
 
 **RF**
 - Deve ser possível cadastrar um novo carro.
