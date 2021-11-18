@@ -6,7 +6,7 @@ services:
     container_name: database_ignite
     restart: always
     ports: 
-      - 5432:5432
+      - 65432:5432
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=ignite
@@ -14,10 +14,10 @@ services:
     volumes:
       - pgdata:/data/postgres
 
-    redis:
-        image: redis:alpine
-        ports: 
-          - 6379:6379
+  redis:
+    image: redis:alpine
+    ports: 
+        - 6379:6379
 
 #   app:
 #     build: .
