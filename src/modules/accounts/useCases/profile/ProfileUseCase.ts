@@ -13,7 +13,7 @@ class ProfileUseCase {
     async execute(id: string): Promise<IUserResponseDTO> {
         const user = await this.userRepository.findById(id);
 
-        UserMap.toDto(user); // metodo static nao precisa instanciar a classe
+        // UserMap.toDto(user); // metodo static nao precisa instanciar a classe
         //delete user.password;
         //delete user.admin; user conceito de maper
 
