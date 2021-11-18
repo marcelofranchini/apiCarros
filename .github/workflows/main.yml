@@ -32,5 +32,5 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          source: "., !node_modules"
+          source: ".,  !node_modules"
           target: "test"
