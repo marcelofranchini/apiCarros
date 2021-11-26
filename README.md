@@ -1,6 +1,16 @@
-## Api Aluguel de Carros
+# Api Aluguel de Carros
 
-## Rota principal da Api - Ec2, S3 e Ses da Aws
+- NodeJs
+- ExpressJs
+- JWT
+- PostGresql
+- Solid
+- Tdd
+- Jest
+- Aws(Ec2 - Ses - S3)
+- Docker
+
+## Rota principal da Api 
 https://rentx.marcelofranchini.tech
 
 
@@ -8,7 +18,7 @@ https://rentx.marcelofranchini.tech
 https://rentx.marcelofranchini.tech/api-docs/
 
 
-
+# Requisitos
 # Cadastro de carro
 
 **RF**
