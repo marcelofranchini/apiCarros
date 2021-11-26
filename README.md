@@ -1,3 +1,14 @@
+## Api Aluguel de Carros
+
+## Rota principal da Api - Ec2, S3 e Ses da Aws
+https://rentx.marcelofranchini.tech
+
+
+## Documentação
+https://rentx.marcelofranchini.tech/api-docs/
+
+
+
 # Cadastro de carro
 
 **RF**
